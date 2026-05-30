@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TalentFlow // Enterprise HRMS & ATS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-icon">
+                    <i class="ri-flow-chart"></i>
+                </div>
+                <span class="brand-name">TalentFlow</span>
+            </div>
+
+            <nav class="sidebar-menu">
+                <a href="#" class="menu-item active" data-view="dashboard">
+                    <i class="ri-dashboard-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="menu-item" data-view="candidates">
+                    <i class="ri-user-shared-line"></i>
+                    <span>Candidates</span>
+                    <span class="menu-badge" id="totalBadge">0</span>
+                </a>
+                <a href="#" class="menu-item" data-view="pipeline">
+                    <i class="ri-git-commit-line"></i>
+                    <span>Pipeline</span>
+                </a>
+                <a href="#" class="menu-item" data-view="interviews">
+                    <i class="ri-calendar-event-line"></i>
+                    <span>Interviews</span>
+                    <span class="menu-badge warning" id="interviewBadge">0</span>
+                </a>
+                <a href="#" class="menu-item" data-view="analytics">
+                    <i class="ri-bar-chart-2-line"></i>
+                    <span>Analytics</span>
+                </a>
+                <a href="#" class="menu-item" data-view="settings">
+                    <i class="ri-settings-3-line"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-avatar">MR</div>
+                <div class="user-info">
+                    <p class="user-name">Matam Rohith</p>
+                    <p class="user-role">Senior Recruiter</p>
+                </div>
+                <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+                    <i class="ri-sun-line"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main -->
+        <main class="main-content">
+            <header class="top-navbar">
+                <div class="navbar-left">
+                    <button class="sidebar-toggle" id="sidebarToggle">
+                        <i class="ri-menu-line"></i>
+                    </button>
+                    <div class="search-bar-container">
+                        <i class="ri-search-line search-icon"></i>
+                        <input type="text" id="globalSearch" placeholder="Search candidates, roles, recruiters...">
+                        <kbd class="search-kbd">⌘K</kbd>
+                    </div>
+                </div>
+                <div class="navbar-actions">
+                    <button class="icon-btn" title="Export CSV" id="exportBtn">
+                        <i class="ri-download-2-line"></i>
+                    </button>
+                    <button class="icon-btn notif-btn" title="Notifications">
+                        <i class="ri-notification-3-line"></i>
+                        <span class="badge-dot"></span>
+                    </button>
+                    <button class="btn btn-primary" id="openModalBtn">
+                        <i class="ri-user-add-line"></i>
+                        <span>Add Candidate</span>
+                    </button>
+                </div>
+            </header>
+
+            <div class="dashboard-wrapper">
+
+                <!-- DASHBOARD VIEW -->
+                <div id="view-dashboard" class="view-section active-view">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Recruitment Overview</h1>
+                            <p class="page-subtitle">Monitor your hiring pipeline and manage applicant workflows.</p>
+                        </div>
+                        <div class="page-header-date" id="currentDate"></div>
+                    </div>
+
+                    <section class="metrics-grid" id="metricsGrid">
+                        <div class="metric-card" data-color="primary">
+                            <div class="metric-header">
+                                <span class="metric-title">Total Applicants</span>
+                                <div class="metric-icon-box primary"><i class="ri-team-line"></i></div>
+                            </div>
+                            <div class="metric-value" id="statTotal">0</div>
+                            <div class="metric-trend up"><i class="ri-arrow-up-line"></i> Active pipeline</div>
+                        </div>
+                        <div class="metric-card" data-color="warning">
+                            <div class="metric-header">
+                                <span class="metric-title">Active Interviews</span>
+                                <div class="metric-icon-box warning"><i class="ri-calendar-check-line"></i></div>
+                            </div>
+                            <div class="metric-value" id="statInterview">0</div>
+                            <div class="metric-trend"><i class="ri-calendar-line"></i> Scheduled</div>
+                        </div>
+                        <div class="metric-card" data-color="success">
+                            <div class="metric-header">
+                                <span class="metric-title">Offers Extended</span>
+                                <div class="metric-icon-box success"><i class="ri-mail-open-line"></i></div>
+                            </div>
+                            <div class="metric-value" id="statOffered">0</div>
+                            <div class="metric-trend up"><i class="ri-arrow-up-line"></i> Pending acceptance</div>
+                        </div>
+                        <div class="metric-card" data-color="info">
+                            <div class="metric-header">
+                                <span class="metric-title">Total Hired</span>
+                                <div class="metric-icon-box info"><i class="ri-checkbox-circle-line"></i></div>
+                            </div>
+                            <div class="metric-value" id="statHired">0</div>
+                            <div class="metric-trend up"><i class="ri-arrow-up-line"></i> Onboarded</div>
+                        </div>
+                    </section>
+
+                    <!-- Recent Activity -->
+                    <div class="data-section">
+                        <div class="section-header">
+                            <h3 class="section-heading">Recent Activity</h3>
+                        </div>
+                        <ul class="activity-list" id="activityList"></ul>
+                    </div>
+                </div>
+
+                <!-- CANDIDATES VIEW -->
+                <div id="view-candidates" class="view-section">
+                    <div class="table-card-header">
+                        <div>
+                            <h2 class="page-title">Candidate Pool</h2>
+                            <p class="page-subtitle">Manage, filter, and track all applicants.</p>
+                        </div>
+                        <div class="filter-group">
+                            <label for="statusFilter" class="filter-label"><i class="ri-filter-3-line"></i></label>
+                            <select id="statusFilter" class="form-control filter-select">
+                                <option value="All">All Statuses</option>
+                                <option value="Applied">Applied</option>
+                                <option value="Screening">Screening</option>
+                                <option value="Interview">Interview</option>
+                                <option value="Offered">Offered</option>
+                                <option value="Hired">Hired</option>
+                                <option value="Rejected">Rejected</option>
+                            </select>
+                            <select id="sortFilter" class="form-control filter-select">
+                                <option value="newest">Newest First</option>
+                                <option value="name">Name A–Z</option>
+                                <option value="experience">Most Experienced</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="custom-table" id="candidateTable">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="selectAll" title="Select all"></th>
+                                    <th>Candidate</th>
+                                    <th>Role Applied</th>
+                                    <th>Experience</th>
+                                    <th>Recruiter</th>
+                                    <th>Interview Date</th>
+                                    <th>Status</th>
+                                    <th style="text-align:right;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="candidateTableBody"></tbody>
+                        </table>
+                        <div class="empty-state hidden" id="emptyState">
+                            <i class="ri-folder-open-line empty-icon"></i>
+                            <h4>No candidates found</h4>
+                            <p>Try adjusting your filters or add a new candidate.</p>
+                        </div>
+                    </div>
+                    <div class="table-footer" id="tableFooter"></div>
+                </div>
+
+                <!-- PIPELINE VIEW -->
+                <div id="view-pipeline" class="view-section">
+                    <div class="page-header">
+                        <h1 class="page-title">Hiring Pipeline</h1>
+                        <p class="page-subtitle">Visual breakdown of candidates across all stages.</p>
+                    </div>
+                    <div class="pipeline-container" id="pipelineStages"></div>
+                    <div class="funnel-section">
+                        <h3 class="section-heading" style="margin-bottom:1.5rem;">Conversion Funnel</h3>
+                        <div class="funnel-bars" id="funnelBars"></div>
+                    </div>
+                </div>
+
+                <!-- INTERVIEWS VIEW -->
+                <div id="view-interviews" class="view-section">
+                    <div class="page-header">
+                        <h1 class="page-title">Interview Schedule</h1>
+                        <p class="page-subtitle">Upcoming and past candidate assessments.</p>
+                    </div>
+                    <div class="data-section">
+                        <ul id="interviewTimelineList" style="list-style:none;display:flex;flex-direction:column;gap:1rem;"></ul>
+                    </div>
+                </div>
+
+                <!-- ANALYTICS VIEW -->
+                <div id="view-analytics" class="view-section">
+                    <div class="page-header">
+                        <h1 class="page-title">Analytics</h1>
+                        <p class="page-subtitle">Hiring insights and recruiter performance.</p>
+                    </div>
+                    <div class="analytics-grid">
+                        <div class="analytics-card">
+                            <h3 class="section-heading">Status Breakdown</h3>
+                            <div class="chart-container">
+                                <canvas id="statusChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="analytics-card">
+                            <h3 class="section-heading">Recruiter Leaderboard</h3>
+                            <div id="recruiterLeaderboard"></div>
+                        </div>
+                        <div class="analytics-card wide">
+                            <h3 class="section-heading">Experience Distribution</h3>
+                            <div class="chart-container">
+                                <canvas id="expChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SETTINGS VIEW -->
+                <div id="view-settings" class="view-section">
+                    <div class="page-header">
+                        <h1 class="page-title">Settings</h1>
+                        <p class="page-subtitle">Configure platform preferences and data management.</p>
+                    </div>
+                    <div class="settings-grid">
+                        <div class="settings-card">
+                            <h3><i class="ri-palette-line"></i> Appearance</h3>
+                            <div class="settings-row">
+                                <span>Dark Mode</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="darkModeToggle" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="settings-card">
+                            <h3><i class="ri-database-2-line"></i> Data Management</h3>
+                            <p class="settings-desc">All data is stored locally in your browser.</p>
+                            <div class="settings-actions">
+                                <button class="btn btn-secondary" id="exportSettingsBtn">
+                                    <i class="ri-download-line"></i> Export All Data (CSV)
+                                </button>
+                                <button class="btn btn-danger" onclick="if(confirm('Reset all data?')){localStorage.clear();location.reload();}">
+                                    <i class="ri-refresh-line"></i> Reset All Data
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="candidateModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">Add New Candidate</h3>
+                <button class="close-modal-btn" id="closeModalBtn"><i class="ri-close-line"></i></button>
+            </div>
+            <form id="candidateForm" novalidate>
+                <input type="hidden" id="candidateId">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="fullName">Full Name *</label>
+                        <input type="text" id="fullName" class="form-control" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" class="form-control" placeholder="john@company.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" class="form-control" placeholder="+91 98765 43210" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="roleApplied">Role Applied *</label>
+                        <input type="text" id="roleApplied" class="form-control" placeholder="Frontend Engineer" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="experience">Years of Experience *</label>
+                        <input type="number" id="experience" class="form-control" placeholder="3" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="recruiterName">Recruiter Name *</label>
+                        <input type="text" id="recruiterName" class="form-control" placeholder="Assign Recruiter" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Application Status *</label>
+                        <select id="status" class="form-control" required>
+                            <option value="Applied">Applied</option>
+                            <option value="Screening">Screening</option>
+                            <option value="Interview">Interview</option>
+                            <option value="Offered">Offered</option>
+                            <option value="Hired">Hired</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="interviewDate">Interview Date</label>
+                        <input type="date" id="interviewDate" class="form-control">
+                    </div>
+                    <div class="form-group col-span-2">
+                        <label for="notes">Evaluation Notes</label>
+                        <textarea id="notes" class="form-control" rows="3" placeholder="Add notes about screening or assignment..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="cancelModalBtn">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="saveBtn">
+                        <i class="ri-save-line"></i> Save Candidate
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirm Dialog -->
+    <div class="confirm-overlay hidden" id="confirmOverlay">
+        <div class="confirm-box">
+            <div class="confirm-icon"><i class="ri-error-warning-line"></i></div>
+            <h3>Remove Candidate?</h3>
+            <p>This will permanently delete the candidate from the pool.</p>
+            <div class="confirm-actions">
+                <button class="btn btn-secondary" id="confirmCancel">Cancel</button>
+                <button class="btn btn-danger" id="confirmDelete">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
