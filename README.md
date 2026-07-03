@@ -166,14 +166,4 @@ See [`reports/bug_reports.md`](reports/bug_reports.md) for 7 structured defect r
 GitHub Actions runs the full test suite on every push/PR to `main`.  
 HTML reports and failure screenshots are uploaded as build artifacts.
 
----
 
-## Resume Lines
-
-> - Developed a Selenium-Python automation framework using the Page Object Model and Pytest  
-> - Automated 30+ functional, regression, and smoke test cases for HR modules  
-> - Implemented Cucumber (Behave) for BDD test scenarios  
-> - Generated HTML execution reports and captured screenshots for failed test cases  
-> - Created structured defect reports with severity and priority classifications  
-> - Performed basic cross-platform validation using Appium on Android Chrome  
-> - Configured GitHub Actions CI/CD to run regression tests on every commit
