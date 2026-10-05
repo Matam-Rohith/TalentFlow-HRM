@@ -1,0 +1,8 @@
+{
+  "name": "TalentFlow HRMS & ATS",
+  "description": "Enterprise HRMS and Applicant Tracking System to monitor hiring pipeline and applicant workflows.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

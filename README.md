@@ -1,60 +1,71 @@
-# TalentFlow HRM – QA Automation Framework
+# TalentFlow // Enterprise HRMS & ATS
 
-[![QA Automation](https://github.com/Matam-Rohith/TalentFlow-HRM/actions/workflows/qa_automation.yml/badge.svg)](https://github.com/Matam-Rohith/TalentFlow-HRM/actions/workflows/qa_automation.yml)
-
-A production-style **Selenium + Pytest + Behave (BDD)** automation framework for the TalentFlow HRM web application, built using the **Page Object Model (POM)** design pattern.
+A production-ready Enterprise Human Resource Management & Applicant Tracking System (HRMS & ATS) designed for recruitment teams to manage candidates, hiring pipelines, interview assessments, and talent analytics.
 
 ---
 
-## Architecture
+## Features
+
+- **Dashboard & Executive Overview**: Real-time metrics tracking active applicants, scheduled interviews, extended offers, and placed hires with activity auditing.
+- **Candidate Pool Management**: Advanced multi-attribute search, department and status filtering, custom column sorting, and pagination controls.
+- **Interactive Kanban Pipeline**: Drag-and-drop candidates across 6 recruitment stages (`Applied`, `Screening`, `Interview`, `Offered`, `Hired`, `Rejected`) with conversion funnel analytics.
+- **Interview Assessment Coordinator**: Schedule, reschedule, and track candidate interview rounds with host assignments, video meeting links, and calendar breakdowns.
+- **Talent Analytics**: Visual performance dashboards powered by Chart.js displaying stage distributions, recruiter caseloads, experience brackets, and department volume.
+- **Bulk Operations**: Multi-select candidates for batch stage progression, CSV export, and bulk deletion.
+- **Data Portability**: Full bidirectional CSV support (export entire applicant rosters or import candidate spreadsheets directly into your pool).
+- **Workspace Customization**: Dark/Light mode theme switching and recruiter workspace profile configuration.
+
+---
+
+## Architecture & Technology Stack
+
+| Layer | Technology |
+|---|---|
+| **Runtime** | Node.js (v22+) |
+| **Server** | Express.js |
+| **Frontend** | HTML5, Modern CSS3 (Custom Design System), Vanilla ES6+ |
+| **Visualizations** | Chart.js 4.4 |
+| **Typography & Icons** | Plus Jakarta Sans, Remix Icon |
+| **Data Persistence** | LocalStorage with schema versioning & migration fallback |
+
+---
+
+## Directory Structure
 
 ```
 TalentFlow-HRM/
-├── pages/               # Page Object Model classes
-│   ├── base_page.py
-│   ├── login_page.py
-│   ├── employee_page.py
-│   └── payroll_page.py
-├── tests/               # Pytest test cases
-│   ├── test_login.py
-│   ├── test_employee.py
-│   ├── test_attendance.py
-│   ├── test_payroll.py
-│   └── test_smoke.py
-├── features/            # Cucumber-style BDD feature files (Behave)
-│   ├── login.feature
-│   ├── employee.feature
-│   └── environment.py
-├── steps/               # Step definitions
-│   ├── login_steps.py
-│   └── employee_steps.py
-├── appium/              # Basic mobile automation
-│   └── test_login_mobile.py
-├── reports/
-│   ├── html_report.html
-│   ├── bug_reports.md
-│   └── test_execution_summary.md
-├── screenshots/         # Auto-captured on failures
-├── conftest.py          # Shared Pytest fixtures
-├── pytest.ini           # Pytest config & markers
-├── requirements.txt
-└── .github/workflows/qa_automation.yml
+├── index.html          # Application layout, semantic views, modals & drawers
+├── style.css           # Enterprise CSS variables, responsive design, dark/light themes
+├── app.js              # Application state machine, drag-and-drop engine, controllers
+├── server.js           # Production Express server serving client assets on port 3000
+├── package.json        # Dependencies and scripts (dev, build, start)
+├── metadata.json       # Applet capabilities and descriptor
+└── .env.example        # Environment variable definitions
 ```
 
 ---
 
-## Tech Stack
+## Getting Started
 
-| Tool | Purpose |
-|---|---|
-| Python 3.11 | Core language |
-| Selenium WebDriver 4 | UI automation |
-| Pytest | Test runner & assertions |
-| Behave | BDD / Cucumber-style tests |
-| Appium | Basic Android Chrome testing |
-| pytest-html | HTML execution reports |
-| WebDriver Manager | Auto-manages ChromeDriver |
-| GitHub Actions | CI/CD pipeline |
+### Prerequisites
 
+- Node.js 18+ or 22+
+- npm
 
+### Installation & Development
 
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+The application will be running at `http://localhost:3000`.
+
+---
+
+## License
+
+MIT License. Built for modern talent acquisition teams.
