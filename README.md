@@ -66,6 +66,50 @@ The application will be running at `http://localhost:3000`.
 
 ---
 
+## Testing
+
+This project uses Playwright for basic end-to-end testing.
+
+### Run the application
+
+```bash
+npm install
+npm run dev
+```
+
+### Run tests
+
+```bash
+npx playwright test
+```
+
+### View test report
+
+```bash
+npx playwright show-report
+```
+
+### What is Being Tested
+
+The automated end-to-end test suite validates core recruitment workflows:
+- **Application Startup & UI Verification**: Title verification, branding visibility, and theme initialization.
+- **Dashboard Overview**: Metrics calculation (Total Applicants, Active Interviews, Offers, Hires) and activity updates.
+- **Candidate Management**: Creating new candidates, editing existing profiles, and deleting candidates with modal confirmation prompts.
+- **Search & Filtering**: Real-time multi-term search, department and recruitment stage filtering, and filter reset.
+- **Recruitment Pipeline**: Progressing candidates across stages (Applied, Screening, Interview, Offered, Hired) and interactive drawer actions.
+- **Interview Scheduling**: Booking technical/HR assessments with date, time, and interviewer assignments.
+- **Form Validation**: Verifying that empty or invalid inputs display descriptive error messages.
+- **Data Persistence**: Verifying candidate records survive page reloads via localStorage.
+- **CSV Data Export**: Verifying candidate exports to CSV files.
+- **Dark/Light Theme Toggle**: Switching and persisting color schemes.
+- **Navigation**: Switching between Dashboard, Candidates, Pipeline, Interviews, Analytics, and Settings views.
+
+Additionally, manual test cases and defect reports are documented in:
+- `docs/test-cases.md`: 16 manual test cases covering functional, regression, and UI scenarios.
+- `docs/bug-report.md`: Reproducible defect reports documented in industry-standard QA format.
+
+---
+
 ## License
 
 MIT License. Built for modern talent acquisition teams.
